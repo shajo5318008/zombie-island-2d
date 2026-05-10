@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://hwdml07ofqfg"]
+
+[ext_resource type="Script" uid="uid://dda2flls553ii" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://8knr0a3r3fuf" path="res://kenney_top-down-shooter/PNG/Hitman 1/hitman1_machine.png" id="2_onrkg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hqtel"]
+radius = 30.016663
+
+[node name="Player" type="CharacterBody2D" unique_id=1437051713 groups=["Player"]]
+script = ExtResource("1_onrkg")
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=581347414]
+position = Vector2(23, 9)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=794850608]
+texture = ExtResource("2_onrkg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=756210742]
+position = Vector2(-3, 5)
+shape = SubResource("CircleShape2D_hqtel")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=781061650]
+
+[node name="GunSound" type="AudioStreamPlayer2D" parent="." unique_id=798063139]
