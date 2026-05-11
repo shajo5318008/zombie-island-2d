@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://kcyvxdvmm57d"]
+
+[ext_resource type="Script" uid="uid://78k1rdcfb16a" path="res://medkit.gd" id="1_22oi4"]
+[ext_resource type="Texture2D" uid="uid://bw4gcq0twld4x" path="res://kenney_top-down-shooter/medkit.jpeg" id="2_6guc2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_axhmu"]
+size = Vector2(199.5, 150.5)
+
+[node name="Medkit" type="Area2D" unique_id=170668479]
+position = Vector2(10, 26)
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_22oi4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=953107427]
+texture = ExtResource("2_6guc2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1361101665]
+position = Vector2(-0.75, 8.75)
+shape = SubResource("RectangleShape2D_axhmu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

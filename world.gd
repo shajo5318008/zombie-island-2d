@@ -1,5 +1,5 @@
 extends Node2D
-
+var medkit_scene = preload("res://medkit.tscn")
 var zombie_scene = preload("res://zombie.tscn")
 var score = 0 
 
@@ -9,26 +9,31 @@ var score = 0
 func _ready():
 	$UI/ScoreLabel.text = "Kills: 0 / " + str(win_score)
 	
-	# THE FIX: Start at the Dusty Twilight Pink/Orange so the river doesn't turn green!
-	$CanvasModulate.color = Color(0.85, 0.55, 0.50) 
+	# 1. Start in pure Daylight (White)
+	$CanvasModulate.color = Color(1.0, 1.0, 1.0) 
 	
-	# Create the Tween
 	var tween = create_tween()
 	
-	# Chain the colors together (22.5 seconds each, totaling 90s)
+	# Stage 1: Fade to Bright Orange Evening (takes 30 seconds)
+	tween.tween_property($CanvasModulate, "color", Color(0.84, 0.47, 0.08), 30.0)
 	
-	# Stage 1: Fade to Deep Orange
-	tween.tween_property($CanvasModulate, "color", Color(0.84, 0.47, 0.08), 22.5)
+	# Stage 2: Fade to Deep Sunset Red (takes 30 seconds)
+	tween.tween_property($CanvasModulate, "color", Color(0.4, 0.1, 0.05), 30.0)
 	
-	# Stage 2: Fade to Rust Red
-	tween.tween_property($CanvasModulate, "color", Color(0.63, 0.16, 0.06), 22.5)
+	# Stage 3: Fade to Moonlight Blue (takes 30 seconds)
+	tween.tween_property($CanvasModulate, "color", Color(0.279, 0.359, 0.966, 1.0), 30.0)
 	
-	# Stage 3: Fade to Dark Maroon
-	tween.tween_property($CanvasModulate, "color", Color(0.35, 0.04, 0.02), 22.5)
-	
-	# Stage 4: Fade to Moonlight Goal (Dark Blue)
-	tween.tween_property($CanvasModulate, "color", Color(0.05, 0.05, 0.08), 22.5)
-
+	spawn_scavenge_items(5) # Spawn 5 medkits at the start
+func spawn_scavenge_items(count):
+	for i in range(count):
+		var item = medkit_scene.instantiate()
+		
+		# 1. Pick a random spot on your map (adjust numbers to fit your map size)
+		var random_pos = Vector2(randf_range(100, 2000), randf_range(100, 2000))
+		
+		# 2. Check if the spot is valid (Optional: we can add complex checks later)
+		item.position = random_pos
+		add_child(item)
 func _on_timer_timeout():
 	var z = zombie_scene.instantiate()
 	# Random spawn logic

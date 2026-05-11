@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
-@export var speed = 80
+@export var speed = 80 # Kept your slower, creepier speed!
 var player = null
-var health = 3  # It will take 3 bullets to drop this zombie
+var health = 2 
 
-# NEW: Load the blood blueprint into the Zombie's memory
 var blood_scene = preload("res://blood_particles.tscn")
+
+# NEW: The Knockback Memory
+var knockback = Vector2.ZERO 
 
 func _ready():
 	player = get_tree().get_first_node_in_group("Player")
@@ -14,23 +16,33 @@ func _physics_process(delta):
 	if player != null:
 		look_at(player.global_position)
 		var direction = global_position.direction_to(player.global_position)
-		velocity = direction * speed
+		
+		# Combine their normal walking speed WITH the knockback force
+		velocity = (direction * speed) + knockback 
+		
+		# Slowly fade the knockback back to zero so they can recover and chase you again
+		knockback = knockback.lerp(Vector2.ZERO, 10 * delta) 
+		
 		move_and_slide()
 		
 		# The Kamikaze Bite!
-		# Loop through anything the zombie just crashed into
 		for i in get_slide_collision_count():
 			var collision = get_slide_collision(i)
 			var collider = collision.get_collider()
 			
-			# If the thing we crashed into is the Player...
 			if collider != null and collider.name == "Player":
-				collider.take_damage(10) # Bite them!
-				queue_free() # The zombie explodes on impact
+				collider.take_damage(10) # The nerfed 10 damage bite
+				queue_free()
 
 # --- COMBAT CODE ---
 func take_damage():
 	health -= 1
+	
+	# NEW: Apply the physical push backwards!
+	if player != null:
+		var push_dir = player.global_position.direction_to(global_position)
+		knockback = push_dir * 600 # Change this 600 to make the gun punch harder/softer!
+		
 	if health <= 0:
 		# --- THE ULTIMATE BLOOD CODE ---
 		var blood = blood_scene.instantiate()
@@ -51,6 +63,5 @@ func take_damage():
 		
 		blood.emitting = true 
 		
-		# --- THE MISSING SCORE & DEATH CODE ---
-		get_parent().add_score() # Increase the kill counter!
-		queue_free() # Actually delete the zombie from the game!
+		get_parent().add_score()
+		queue_free()
