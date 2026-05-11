@@ -7,8 +7,27 @@ var score = 0
 @export var win_score = 10 
 
 func _ready():
-	# Update the label at the start so the player sees the goal
 	$UI/ScoreLabel.text = "Kills: 0 / " + str(win_score)
+	
+	# THE FIX: Start at the Dusty Twilight Pink/Orange so the river doesn't turn green!
+	$CanvasModulate.color = Color(0.85, 0.55, 0.50) 
+	
+	# Create the Tween
+	var tween = create_tween()
+	
+	# Chain the colors together (22.5 seconds each, totaling 90s)
+	
+	# Stage 1: Fade to Deep Orange
+	tween.tween_property($CanvasModulate, "color", Color(0.84, 0.47, 0.08), 22.5)
+	
+	# Stage 2: Fade to Rust Red
+	tween.tween_property($CanvasModulate, "color", Color(0.63, 0.16, 0.06), 22.5)
+	
+	# Stage 3: Fade to Dark Maroon
+	tween.tween_property($CanvasModulate, "color", Color(0.35, 0.04, 0.02), 22.5)
+	
+	# Stage 4: Fade to Moonlight Goal (Dark Blue)
+	tween.tween_property($CanvasModulate, "color", Color(0.05, 0.05, 0.08), 22.5)
 
 func _on_timer_timeout():
 	var z = zombie_scene.instantiate()

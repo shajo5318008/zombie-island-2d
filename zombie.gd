@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed = 150
+@export var speed = 80
 var player = null
 var health = 3  # It will take 3 bullets to drop this zombie
 
@@ -25,7 +25,7 @@ func _physics_process(delta):
 			
 			# If the thing we crashed into is the Player...
 			if collider != null and collider.name == "Player":
-				collider.take_damage(20) # Bite them!
+				collider.take_damage(10) # Bite them!
 				queue_free() # The zombie explodes on impact
 
 # --- COMBAT CODE ---

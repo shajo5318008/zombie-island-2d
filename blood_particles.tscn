@@ -1,3 +1,8 @@
 [gd_scene format=3 uid="uid://cy77sibxhbk6y"]
 
+[ext_resource type="PackedScene" uid="uid://b268q41vxccbp" path="res://world.tscn" id="1_h5v43"]
+
 [node name="BloodParticles" type="CPUParticles2D" unique_id=241857273]
+
+[node name="World" parent="." unique_id=879187284 instance=ExtResource("1_h5v43")]
+position = Vector2(496, 916)

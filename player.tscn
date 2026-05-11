@@ -10,9 +10,6 @@ radius = 30.016663
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_i3pqv"]
 gradient = SubResource("Gradient_onrkg")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 0.5)
 
 [sub_resource type="Gradient" id="Gradient_hqtel"]
 
@@ -33,12 +30,14 @@ position = Vector2(-3, 5)
 shape = SubResource("CircleShape2D_hqtel")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=781061650]
+zoom = Vector2(0.4, 0.4)
+position_smoothing_enabled = true
 
 [node name="GunSound" type="AudioStreamPlayer2D" parent="." unique_id=798063139]
 
 [node name="Flashlight" type="PointLight2D" parent="." unique_id=880049098]
-position = Vector2(9.500002, 3.9999983)
-scale = Vector2(1.3906251, 1.21875)
+position = Vector2(18, 4)
+scale = Vector2(4, 1.5)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_i3pqv")
 
