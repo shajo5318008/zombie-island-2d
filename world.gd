@@ -16,8 +16,9 @@ func add_score():
 	$UI/ScoreLabel.text = "Kills: " + str(score)
 
 
-func _on_restart_pressed() -> void:
-	pass # Replace with function body.
+func _on_restart_pressed():
+	get_tree().paused = false # We MUST unpause before reloading!
+	get_tree().reload_current_scene()
 	
 # Add this anywhere in world.gd
 func game_over():
@@ -26,5 +27,6 @@ func game_over():
 
 # This is the signal you just connected from the button
 func _on_button_pressed():
-	get_tree().paused = false # Unfreeze the engine
-	get_tree().reload_current_scene() # Reset the level completely
+	print("THE BUTTON WORKS!") # <--- NEW LINE
+	get_tree().paused = false
+	get_tree().reload_current_scene()

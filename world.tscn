@@ -581,6 +581,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.039215688, 0.039215688, 0.039215688, 0.5882353)
 
 [node name="Label" type="Label" parent="UI/GameOverMenu" unique_id=344942868]
@@ -599,6 +600,7 @@ grow_vertical = 2
 text = "GAME OVER"
 
 [node name="RESTART" type="Button" parent="UI/GameOverMenu" unique_id=1981659030]
+process_mode = 3
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -611,6 +613,9 @@ offset_right = 37.5
 grow_horizontal = 2
 grow_vertical = 0
 text = "RESTART"
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=54109013]
+color = Color(0.1394, 0.18286334, 0.34, 1)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="UI/GameOverMenu/RESTART" to="." method="_on_restart_pressed"]
