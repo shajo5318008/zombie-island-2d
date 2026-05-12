@@ -23,6 +23,11 @@ func _ready():
 	# Stage 3: Fade to Moonlight Blue (takes 30 seconds)
 	tween.tween_property($CanvasModulate, "color", Color(0.279, 0.359, 0.966, 1.0), 30.0)
 	
+	# NEW: The Instructions Fade-Out
+	var text_tween = create_tween()
+	# Wait 5 seconds, then fade the "alpha" (transparency) to 0 over 2 seconds
+	text_tween.tween_property($UI/InstructionsLabel, "modulate:a", 0.0, 2.0).set_delay(5.0)
+	
 	spawn_scavenge_items(5) # Spawn 5 medkits at the start
 func spawn_scavenge_items(count):
 	for i in range(count):
